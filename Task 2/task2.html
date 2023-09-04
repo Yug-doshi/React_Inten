@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Searching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        th, td {
+            text-align: center;
+            border: 2px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], select {
+            width: 80%;
+            padding: 8px;
+            margin: 10px;
+            margin-left: 120px;
+            margin-right: 100px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 2px solid black;
+        }
+
+        .myclass {
+            background-color: black;
+            color: white;
+            border: 2px solid white;
+        }
+
+        
+        tr:nth-child(even) {
+            background-color: white; 
+        }
+
+        tr:nth-child(odd) {
+            background-color: #e6e6e6;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: red;">Searching and Filtering</h1>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <select id="filterDropdown">
+        <option value="all">All</option>
+        <option value="id">ID</option>
+        <option value="name">Name</option>
+        <option value="city">City</option>
+        <option value="age">Age</option>
+    </select>
+    <br><br><br>
+    <table id="personsTable" class="table table-striped mt-4 border border-dark">
+        <thead>
+            <tr class="myc">
+                <th class="myclass"><b>ID</b></th>
+                <th class="myclass"><b>Name</b></th>
+                <th class="myclass"><b>City</b></th>
+                <th class="myclass"><b>Age</b></th>
+                <th class="myclass"><b>Profile Pic</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <script>
+        const persons = [
+            { id: 1, name: "Yug", city: "snagar", age: 17, profilePic: "doctor.png" },
+            { id: 2, name: "Jainam", city: "snagar", age: 18, profilePic: "teacher.png" },
+            { id: 3, name: "Krish", city: "London", age: 19, profilePic: "examination.png" },
+            { id: 4, name: "Harsh", city: "rajkot", age: 22, profilePic: "graduated.png" },
+            { id: 5, name: "Kavy", city: "ahmedabad", age: 28, profilePic: "student_logo.jpeg" },
+
+        ];
+
+        console.table(persons);
+
+        const tableBody = document.querySelector("#personsTable tbody");
+        const searchInput = document.getElementById("searchInput");
+        const filterDropdown = document.getElementById("filterDropdown");
+
+
+        // Function to generate table rows based on the persons data
+        function generateTableRows(data) {
+            tableBody.innerHTML = "";
+            data.forEach(person => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><b>${person.id}</b></td>
+                    <td><b>${person.name}</b></td>
+                    <td><b>${person.city}</b></td>
+                    <td><b>${person.age}</b></td>
+                    <td><img src='${person.profilePic}' style="height: 50px; margin-left: 15px;"></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to filter data based on search text and selected property
+        function filterData(searchText, property) {
+            const filteredData = persons.filter(person => {
+                if (property === "all") {
+                    return (
+                        person.id.toString().includes(searchText) ||
+                        person.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                        person.city.toLowerCase().includes(searchText.toLowerCase()) ||
+                        person.age.toString().includes(searchText)
+                    );
+                } else {
+                    return person[property].toString().includes(searchText);
+                }
+            });
+            generateTableRows(filteredData);
+        }
+
+        // Initial data display
+        generateTableRows(persons);
+
+        // Event listener for search input
+        searchInput.addEventListener("input", function () {
+            const selectedProperty = filterDropdown.value;
+            filterData(this.value, selectedProperty);
+        });
+
+        // Event listener for filter dropdown
+        filterDropdown.addEventListener("change", function () {
+            const searchText = searchInput.value;
+            const selectedProperty = this.value;
+            filterData(searchText, selectedProperty);
+        });
+    </script>
+</body>
+</html>

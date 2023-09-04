@@ -1,0 +1,6 @@
+Task 1:about react
+Task 2:download Node.js
+Task 3:Install react app
+       npx create-react-app intern-demo
+Task 4:npm start
+Task 5

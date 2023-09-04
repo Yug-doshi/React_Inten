@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students =[ {
+            enno:101,name:"Vedant1",course:"php"
+        },
+        {
+            enno:102,name:"Vedant2",course:"java"
+        },
+        {
+            enno:103,name:"Vedant3",course:"php"
+        },
+        {
+            enno:104,name:"Vedant4",course:"java"
+        },
+        {
+            enno:105,name:"Aedant5",course:"java"
+        }
+    ]
+    //display all
+    //display name for course in php
+    //display name for enno is 104
+    //remove for enno is 103
+    //display name for start with A
+    //1
+
+    const remove_student=students.filter(student=>student.enno!==103);
+    console.table(remove_student);
+    
+    students.forEach(function(item,index) {
+        console.log( item,index);
+    });
+    console.table(students);
+
+    let name_c = students.filter(student=> student.course==="php");
+    name_c.forEach(function(item,index) {
+        console.log( item,index);
+    });
+
+    const name2 = students.filter(students=>{ return students.enno===104});
+    console.log(name2);
+
+    const remove=students.filter(students=>students.enno!==103);
+    console.log(students);
+    
+
+    let name3 = students.find(student=> student.course==="php").name;
+    console.log(name3);
+
+    const name4 = students.filter(students=> students.name.startsWith("A"));
+    console.table(name4);
+    </script>
+</body>
+</html>
